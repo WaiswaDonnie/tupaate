@@ -6,6 +6,20 @@ import EntypoIcons from 'react-native-vector-icons/Entypo'
 import { Avatar } from '@ui-kitten/components';
 import PostCard from '../../components/PostCard'
 const Home = ({ navigation }) => {
+navigation.setOptions({
+  headerLeft:()=>(
+    <TouchableOpacity style={feedStyles.header}>
+    <Avatar size="large" source={{ uri:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg'}} />
+   </TouchableOpacity>
+  ),
+headerRight:()=>(
+  <TouchableOpacity style={feedStyles.header}>
+
+  <SimpleLineIcons name="settings" size={23} />
+  </TouchableOpacity>
+)
+})
+  
   const data = [
 
     {
@@ -50,7 +64,7 @@ const Home = ({ navigation }) => {
   }
   return (
     <View>
-      <View style={feedStyles.header}>
+      {/* <View style={feedStyles.header}>
         <TouchableOpacity>
          <Avatar size="large" source={{ uri:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg'}} />
         </TouchableOpacity>
@@ -58,7 +72,7 @@ const Home = ({ navigation }) => {
 
         <SimpleLineIcons name="settings" size={23} />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       {/* <View
         style={feedStyles.stories}
