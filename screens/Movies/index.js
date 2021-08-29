@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React,{useState,useEffect,useContext} from 'react';
+import React,{useState,useEffect,useLayoutEffect,useContext} from 'react';
 import COLORS from '../../constants/colors';
 import {View,StyleSheet,SectionList,TouchableOpacity,FlatList,SafeAreaView,StatusBar,ScrollView,ActivityIndicator} from 'react-native';
 import {Text} from '@ui-kitten/components';
@@ -9,11 +9,52 @@ import SearchInput from '../../components/SearchInput';
 import MovieCard from '../../components/MovieCard';
 import axios from 'axios'
 import { MovieContext } from '../../components/Context/MovieContext';
-function Movies({navigation}) {
+function Movies({navigation,route}) {
 
 const {movies,popularMovies} = useContext(MovieContext)
+const [turnToWhite,setTurnToWhite] = useState("dark-content")
  const MOVIE_API =  'https://yts.mx/api/v2/list_movies.json?sort_by=year';
 
+ 
+
+
+
+ useLayoutEffect(()=>{
+
+   navigation.setOptions({
+     title:'',
+     headerStyle:{
+       backgroundColor:'black'
+     },
+     headerLeft:()=>(
+       <View >
+<Text 
+style={styles.logo} 
+>Onieflix</Text>
+</View>
+     ),
+     headerRight:()=>(
+       <View>
+      <TouchableOpacity
+      onPress={()=>{
+        navigation.navigate('Search',{name:'Search'})
+      }}
+      style={{
+        backgroundColor:'#383838',
+        height: 30,
+        width:30,
+        borderRadius:50,
+        justifyContent:'center',
+        alignItems: 'center',
+        marginHorizontal: 10
+      }}
+      >
+      <FontAwesome name="search" size={15} color="white" />
+      </TouchableOpacity>
+      </View>
+     )
+   })
+ },[route])
 
  useEffect(()=>{
 
@@ -40,16 +81,17 @@ const Item = ({ title }) => (
 );
   return (
     <SafeAreaView style={{flex:1,backgroundColor:'rgba(0,0,0,0)'}}>
-<StatusBar backgroundColor={COLORS.dark} transparent={true} />
+
+
       <View style={styles.container}>
 
     
 
         <View style={styles.header}>
-<Text 
+{/* <Text 
 style={styles.logo} 
->Onieflix</Text>
-<TouchableOpacity
+>Onieflix</Text> */}
+{/* <TouchableOpacity
 onPress={()=>{
   navigation.navigate('Search',{name:'Search'})
 }}
@@ -63,7 +105,7 @@ style={{
 }}
 >
 <FontAwesome name="search" size={15} color="white" />
-</TouchableOpacity>
+</TouchableOpacity> */}
         </View>
         {/* <View style={styles.search}>
         <Input
@@ -209,6 +251,7 @@ const styles =  StyleSheet.create({
     color:COLORS.primary,
     fontStyle:'normal',
     fontSize:30,
+    marginHorizontal:15
   },
   search:{
 zIndex:1,

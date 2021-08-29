@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import {StatusBar} from 'react-native'
 
 import Main from './screens/Main';
 import Auth from './screens/Auth';
@@ -26,6 +26,7 @@ const App = () => {
   return (
     <MovieContextProvider>
       <IconRegistry icons={EvaIconsPack} />
+      <StatusBar barStyle="dark-content" />
       <ApplicationProvider {...eva} theme={eva.light}>
         <NavigationContainer>
           <AuthStack.Navigator>
@@ -53,6 +54,7 @@ const App = () => {
               :
               (
                 <>
+               
                   <AuthStack.Screen
                     name="Login"
                     options={{ headerShown: false }}

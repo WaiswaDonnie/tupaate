@@ -6,21 +6,23 @@ import COLORS from '../../constants/colors';
 const image = {uri:'https://c4.wallpaperflare.com/wallpaper/821/662/561/bar-club-dance-dancing-wallpaper-preview.jpg'};
 
 const EventDetail = ({navigation, route}) => {
+
   return (
+    // <SafeAreaView style={styles.safe}>
     <View style={styles.container}>
       <View style={styles.titlecard}>
         <ImageBackground style={styles.eventimage}
-        source={{uri:'https://c4.wallpaperflare.com/wallpaper/821/662/561/bar-club-dance-dancing-wallpaper-preview.jpg'}}
+        source={{ uri:route.params.item.image}}
+        // source={{uri:'https://c4.wallpaperflare.com/wallpaper/821/662/561/bar-club-dance-dancing-wallpaper-preview.jpg'}}
         >
           <View style={styles.dateicon}>
-            <Text style={{color:'white',fontWeight:'bold',}}>
-              24
-              Dec
+            <Text style={{color:'white',fontWeight:'bold',textAlign:'center'}}>
+              {route.params.item.date}
             </Text>
             
           </View>
           <Text style={styles.eventtext}>
-            Moon Crush Festival
+            {route.params.item.name}
           </Text>
 
         </ImageBackground>        
@@ -28,43 +30,27 @@ const EventDetail = ({navigation, route}) => {
 
       <View style={styles.abouttext}>
         <View style={styles.eventdetails}>
-          <Text style={styles.words}>Barclays Center</Text>
-          <Text style={styles.words}>19PM-22PM</Text>
+          <Text style={styles.words}>{route.params.item.location}</Text>
+          <Text style={styles.words}>{route.params.item.time}</Text>
         </View>
         <View style={styles.eventdetails}>
-          <Text style={styles.words}>1947 participants</Text>
-          <Text style={styles.words}>3 days duration</Text>
+          <Text style={styles.words}>{route.params.item.participants} participants</Text>
+          <Text style={styles.words}>{route.params.item.duration} duration</Text>
         </View>
           <TouchableOpacity style={styles.buybutton}>
             <Text style={{color:'white'}}>BUY TICKET</Text>
           </TouchableOpacity>
-          <Text style={styles.about}>About</Text>        
+          {/* <Text style={styles.about}>About</Text>         */}
         <ScrollView style={styles.aboutscreen}>
           
           <Text style={styles.words}>
-            jhagjdagfjhsdfgsdjkfhaiufshdfkjhsdk
-            jfhsdkhfksdfkhsdkjhgfkjdsflsjdlfhsdkjgaksjhfkdshgfkdsgbf
-            sdkjfsdkhfjdhgkhdfkgjhdf
-            gdfghdfkghdkfjhgkdfhgkjdfg
-            dfgkjhdfgkhdfgjhjkdhkfhgkjdfhkgdf
-            gdfkgjhdfkjhgkjdfhkg
+          
+          {route.params.item.description}
           </Text>
-          <Text style={styles.words}>
-            jhagjdagfjhsdfgsdjkfhaiufshdfkjhsdk
-            jfhsdkhfksdfkhsdkjhgfkjdsflsjdlfhsdkjgaksjhfkdshgfkdsgbf
-            sdkjfsdkhfjdhgkhdfkgjhdf
-            gdfghdfkghdkfjhgkdfhgkjdfg
-            dfgkjhdfgkhdfgjhjkdhkfhgkjdfhkgdf
-            gdfkgjhdfkjhgkjdfhkg
-          </Text>
-          <Text style={styles.words}>
-            jhagjdagfjhsdfgsdjkfhaiufshdfkjhsdk
-            jfhsdkhfksdfkhsdkjhgfkjdsflsjdlfhsdkjgaksjhfkdshgfkdsgbf
-            sdkjfsdkhfjdhgkhdfkgjhdf
-            gdfghdfkghdkfjhgkdfhgkjdfg
-            dfgkjhdfgkhdfgjhjkdhkfhgkjdfhkgdf
-            gdfkgjhdfkjhgkjdfhkg
-          </Text>
+         
+         
+         
+         
 
         </ScrollView>
         
@@ -72,16 +58,22 @@ const EventDetail = ({navigation, route}) => {
 
       </View>            
     </View>
+    // </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({ 
+  safe:{
+    ...StyleSheet.absoluteFillObject,
+  },
   container: {
     flex: 1,
         
   },
   titlecard: {
     flex: 1,
+    // backgroundColor:'black',
+    backgroundColor:'black'
   },
   abouttext: {
     flex: 1,
@@ -94,6 +86,9 @@ const styles = StyleSheet.create({
     width:'100%',
     height:'100%',
     flexDirection:'column',
+    opacity:.7,
+  
+
   },
   dateicon:{
     width:50,
@@ -103,9 +98,10 @@ const styles = StyleSheet.create({
     alignSelf:'flex-end',
     position:'absolute',
     right:5,
-    top:5,
+    top:40,
     alignItems:'center',
     justifyContent:'center',
+    textAlign:'center',
 
     
   },
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
     fontSize:30,
     fontWeight:'bold',
     position:'absolute',
-    top:250,
+    top:350,
     left:5
   },
   eventdetails:{
@@ -135,7 +131,7 @@ const styles = StyleSheet.create({
      
     width:'100%',
     height:'100%',
-    marginTop:1,
+    marginTop:15,
     marginLeft:5
     
     
@@ -151,7 +147,9 @@ const styles = StyleSheet.create({
 
   },
   words:{
-    color:'white'
+    color:'white',
+    fontSize:20,
+    
   }
    
   
