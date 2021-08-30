@@ -149,7 +149,6 @@ const styles = StyleSheet.create({
   words:{
     color:'white',
     fontSize:20,
-    
   }
    
   

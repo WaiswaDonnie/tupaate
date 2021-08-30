@@ -59,9 +59,6 @@ header:{
     justifyContent:'space-between',
     alignItems:'center',
     backgroundColor:COLORS.primary,
-   
-
-
 },
 footer:{
   position:'absolute',
@@ -78,12 +75,16 @@ backicon:{
 color:COLORS.white,
 fontSize:31
 },
+
+ 
+
 name:{
 fontSize:21,
 color:COLORS.white,
 
 },
-threedots:{
+
+  threedots:{
     color:COLORS.white,
     fontSize:31
 }
