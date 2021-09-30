@@ -9,6 +9,7 @@ export function GlobalContextProvider({children}){
  const [movies,setMovies] =  useState([])
  const [popularMovies,setPopularMovies] =  useState([])
  const [searchResults,setSearchResults] = useState([])
+ const [ userProfile , setUserProfile] = useState(null)
  useEffect(()=>{
 getMovies();
 getPopularMovies();
@@ -45,7 +46,158 @@ getPopularMovies();
    }
 
 //Authentication Methods
+const login = async(email,password)=>{
+  auth.
+  signInWithEmailAndPassword(email,password)
+  .then((userCredential)=>{
+      if(userCredential){
+          setUserProfile(userCredential.user)
+          checkAdmin(userCredential)
+          toast.success(`Logged in as ${userCredential.user.displayName}`,{
+              position: toast.POSITION.TOP_RIGHT
+          })
+      }
+  }).catch(error=>{
+      toast.error(error.message, {
+          position: toast.POSITION.BOTTOM_CENTER
+        });
+  })
+  
+}
 
+const signup = async(username,email,password)=>{
+  auth.createUserWithEmailAndPassword(email,password)
+  .then(userCredential=>{
+      if(userCredential){
+          userCredential.user.updateProfile({
+              displayName: username,
+          })
+          toast.success(`Account created succesfully`,{
+              position: toast.POSITION.TOP_RIGHT
+          })
+          setUserProfile(userCredential.user)
+         
+      }
+      
+  }).catch(error=>{
+      
+      toast.error(error.message, {
+          position: toast.POSITION.BOTTOM_CENTER
+        });
+  })
+} 
+
+
+const loginWithGoogle = async()=>{
+  const provider = await new firebase.default.auth.GoogleAuthProvider()
+  
+  auth.signInWithPopup(provider)
+  .then((userCredential)=>{
+      if(userCredential){
+          setUserProfile(userCredential.user)
+          checkAdmin(userCredential);
+          toast.success(`Logged in as ${userCredential.user.displayName}`,{
+              position: toast.POSITION.TOP_RIGHT
+          })
+      }
+    
+  })
+  .catch(error=>{
+  
+      toast.error(error.message, {
+          position: toast.POSITION.BOTTOM_CENTER
+        });
+  })
+}
+
+const loginWithFacebook = async()=>{
+  const provider  = await new firebase.default.auth.FacebookAuthProvider();
+
+  auth.signInWithPopup(provider)
+  .then(userCredential=>{
+      if(userCredential){
+          setUserProfile(userCredential.user)
+          toast.success(`Logged in as ${userCredential.user.displayName}`,{
+              position: toast.POSITION.TOP_RIGHT
+          })
+      }
+  })
+  .catch(error=>{
+      toast.error(error.message, {
+          position: toast.POSITION.TOP_LEFT
+        });
+  })
+}
+
+const loginWithTwitter = async()=>{
+  const provider = await new firebase.default.auth.TwitterAuthProvider()
+  auth.signInWithPopup(provider)
+  .then((userCredential)=>{
+      if(userCredential){
+          setUserProfile(userCredential.user)
+
+          // toast.success(`Logged in as ${userCredential.user.displayName}`)
+      }
+      
+  })
+  .catch(error=>{
+      // toast.error(error.message, {
+      //     position: toast.POSITION.BOTTOM_CENTER
+      //   });
+  })
+
+}
+
+const verifyEmail = async(email)=>{
+  
+  auth.currentUser.sendEmailVerification()
+      .then(() => {
+        
+          
+     
+       
+          alert("send")
+      }).catch(error => alert(error.message))
+
+  // auth.sendVerificationLink(email)
+  // auth.currentUser.sendEmailVerification(email)
+  // .then(result=>{
+  //     toast.success("Email has been sent succesfully...", {
+  //         position: toast.POSITION.TOP_CENTER
+  //       });
+  // })
+  // .catch(error=>{
+  //     toast.error(error.message, {
+  //         position: toast.POSITION.BOTTOM_CENTER
+  //       });
+  // })
+
+}
+
+
+
+
+const resetPassword = async(email)=>{
+  auth.sendPasswordResetEmail(email)
+  .then(()=>{
+     
+      // toast.success("Reset link has been sent to your email...", {
+      //     position: toast.POSITION.TOP_CENTER
+      //   });
+  })
+  .catch(error=>{
+      // toast.error(error.message, {
+      //     position: toast.POSITION.BOTTOM_CENTER
+      //   });
+  })
+  
+}
+
+const logout = async () => {
+  auth.signOut()
+  setUserProfile(null)
+
+}
 
 
 
@@ -55,6 +207,15 @@ getPopularMovies();
     return (
     <GlobalContext.Provider
     value={{
+      login,
+      logout,
+      loginWithTwitter,
+      loginWithFacebook,
+      loginWithGoogle,
+      signup,
+      verifyEmail,
+      resetPassword,
+      userProfile,
 movies,
 popularMovies,
 searchMovies,
