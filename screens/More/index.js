@@ -2,12 +2,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React,{useContext,useEffect,useState} from 'react';
 import {View,Text,StyleSheet,FlatList,TouchableOpacity} from 'react-native'
-import { MovieContext } from '../../components/Context/MovieContext';
+import { GlobalContext } from '../../components/Context/GlobalContext';
 import MovieCard from '../../components/MovieCard';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import {Input} from '@ui-kitten/components'
 const More = ({route,navigation})=>{
-    const {popularMovies,movies,searchMovies,searchResults} = useContext(MovieContext)
+    const {popularMovies,movies,searchMovies,searchResults} = useContext(GlobalContext)
     const [data,setData] =  useState([])
     const [query,setQuery] = useState('')
     useEffect(()=>{

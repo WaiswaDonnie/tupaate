@@ -2,9 +2,10 @@
 
 import React, { createContext, useState,useEffect } from 'react';
 import axios from 'axios';
-export const MovieContext =  createContext();
+import {auth} from '../../firebase'
+export const GlobalContext =  createContext();
 
-export function MovieContextProvider({children}){
+export function GlobalContextProvider({children}){
  const [movies,setMovies] =  useState([])
  const [popularMovies,setPopularMovies] =  useState([])
  const [searchResults,setSearchResults] = useState([])
@@ -43,8 +44,16 @@ getPopularMovies();
      })
    }
 
+//Authentication Methods
+
+
+
+
+
+   
+
     return (
-    <MovieContext.Provider
+    <GlobalContext.Provider
     value={{
 movies,
 popularMovies,
@@ -52,6 +61,6 @@ searchMovies,
 searchResults
     }}>
         {children}
-    </MovieContext.Provider>
+    </GlobalContext.Provider>
         )
     }

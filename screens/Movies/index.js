@@ -8,10 +8,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SearchInput from '../../components/SearchInput';
 import MovieCard from '../../components/MovieCard';
 import axios from 'axios'
-import { MovieContext } from '../../components/Context/MovieContext';
+import { GlobalContext } from '../../components/Context/GlobalContext';
 function Movies({navigation,route}) {
 
-const {movies,popularMovies} = useContext(MovieContext)
+const {movies,popularMovies} = useContext(GlobalContext)
 const [turnToWhite,setTurnToWhite] = useState("dark-content")
  const MOVIE_API =  'https://yts.mx/api/v2/list_movies.json?sort_by=year';
 

@@ -17,14 +17,14 @@ import More from './screens/More'
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
-import { MovieContextProvider } from './components/Context/MovieContext';
+import { GlobalContextProvider } from './components/Context/GlobalContext';
 import SearchScreen from './screens/SearchScreen';
 const AuthStack = createStackNavigator();
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
-    <MovieContextProvider>
+    <GlobalContextProvider>
       <IconRegistry icons={EvaIconsPack} />
       <StatusBar barStyle="dark-content" />
       <ApplicationProvider {...eva} theme={eva.light}>
@@ -94,7 +94,7 @@ const App = () => {
           </AuthStack.Navigator>
         </NavigationContainer>
       </ApplicationProvider>
-    </MovieContextProvider>
+    </GlobalContextProvider>
   );
 };
 
