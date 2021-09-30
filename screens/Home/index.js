@@ -5,6 +5,8 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import EntypoIcons from 'react-native-vector-icons/Entypo'
 import { Avatar } from '@ui-kitten/components';
 import PostCard from '../../components/PostCard'
+import { Input } from '@ui-kitten/components';
+import PostInput from '../../components/PostInput';
 const Home = ({ navigation }) => {
 navigation.setOptions({
   headerLeft:()=>(
@@ -92,8 +94,14 @@ headerRight:()=>(
 
       </View> */}
       <View>
+        <View
+        style={{marginVertical:20}}
+        >
         
-        
+         
+          <PostInput />
+        </View>
+   
         {/* <PostCard /> */}
       </View>
 
