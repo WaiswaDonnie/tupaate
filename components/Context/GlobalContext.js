@@ -52,15 +52,15 @@ const login = async(email,password)=>{
   .then((userCredential)=>{
       if(userCredential){
           setUserProfile(userCredential.user)
-          checkAdmin(userCredential)
-          toast.success(`Logged in as ${userCredential.user.displayName}`,{
-              position: toast.POSITION.TOP_RIGHT
-          })
+          // checkAdmin(userCredential)
+          // toast.success(`Logged in as ${userCredential.user.displayName}`,{
+          //     position: toast.POSITION.TOP_RIGHT
+          // })
       }
   }).catch(error=>{
-      toast.error(error.message, {
-          position: toast.POSITION.BOTTOM_CENTER
-        });
+      // toast.error(error.message, {
+      //     position: toast.POSITION.BOTTOM_CENTER
+      //   });
   })
   
 }
@@ -72,18 +72,18 @@ const signup = async(username,email,password)=>{
           userCredential.user.updateProfile({
               displayName: username,
           })
-          toast.success(`Account created succesfully`,{
-              position: toast.POSITION.TOP_RIGHT
-          })
+          // toast.success(`Account created succesfully`,{
+          //     position: toast.POSITION.TOP_RIGHT
+          // })
           setUserProfile(userCredential.user)
          
       }
       
   }).catch(error=>{
       
-      toast.error(error.message, {
-          position: toast.POSITION.BOTTOM_CENTER
-        });
+      // toast.error(error.message, {
+      //     position: toast.POSITION.BOTTOM_CENTER
+      //   });
   })
 } 
 
@@ -95,18 +95,18 @@ const loginWithGoogle = async()=>{
   .then((userCredential)=>{
       if(userCredential){
           setUserProfile(userCredential.user)
-          checkAdmin(userCredential);
-          toast.success(`Logged in as ${userCredential.user.displayName}`,{
-              position: toast.POSITION.TOP_RIGHT
-          })
+          // checkAdmin(userCredential);
+          // toast.success(`Logged in as ${userCredential.user.displayName}`,{
+          //     position: toast.POSITION.TOP_RIGHT
+          // })
       }
     
   })
   .catch(error=>{
   
-      toast.error(error.message, {
-          position: toast.POSITION.BOTTOM_CENTER
-        });
+      // toast.error(error.message, {
+      //     position: toast.POSITION.BOTTOM_CENTER
+      //   });
   })
 }
 
@@ -117,15 +117,15 @@ const loginWithFacebook = async()=>{
   .then(userCredential=>{
       if(userCredential){
           setUserProfile(userCredential.user)
-          toast.success(`Logged in as ${userCredential.user.displayName}`,{
-              position: toast.POSITION.TOP_RIGHT
-          })
+          // toast.success(`Logged in as ${userCredential.user.displayName}`,{
+          //     position: toast.POSITION.TOP_RIGHT
+          // })
       }
   })
   .catch(error=>{
-      toast.error(error.message, {
-          position: toast.POSITION.TOP_LEFT
-        });
+      // toast.error(error.message, {
+      //     position: toast.POSITION.TOP_LEFT
+      //   });
   })
 }
 
@@ -199,11 +199,6 @@ const logout = async () => {
 
 }
 
-
-
-
-   
-
     return (
     <GlobalContext.Provider
     value={{
@@ -216,10 +211,10 @@ const logout = async () => {
       verifyEmail,
       resetPassword,
       userProfile,
-movies,
-popularMovies,
-searchMovies,
-searchResults
+      movies,
+      popularMovies,
+      searchMovies,
+      searchResults
     }}>
         {children}
     </GlobalContext.Provider>

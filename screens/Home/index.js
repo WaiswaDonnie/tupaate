@@ -92,7 +92,9 @@ headerRight:()=>(
 
       </View> */}
       <View>
-        <PostCard />
+        
+        
+        {/* <PostCard /> */}
       </View>
 
 
