@@ -3,6 +3,7 @@
 import React, { createContext, useState,useEffect } from 'react';
 import axios from 'axios';
 import {auth} from '../../firebase'
+import * as firebase from 'firebase';
 export const GlobalContext =  createContext();
 
 export function GlobalContextProvider({children}){
@@ -54,17 +55,19 @@ const login = async(email,password)=>{
   .then((userCredential)=>{
       if(userCredential){
           setUserProfile(userCredential.user)
+          
           // checkAdmin(userCredential)
           // toast.success(`Logged in as ${userCredential.user.displayName}`,{
           //     position: toast.POSITION.TOP_RIGHT
           // })
       }
   }).catch(error=>{
+    alert(error.message)
       // toast.error(error.message, {
       //     position: toast.POSITION.BOTTOM_CENTER
       //   });
   })
-  
+  console.log("DOnee")
 }
 
 const signup = async(username,email,password)=>{
@@ -91,7 +94,7 @@ const signup = async(username,email,password)=>{
 
 
 const loginWithGoogle = async()=>{
-  const provider = await new firebase.default.auth.GoogleAuthProvider()
+  const provider =  new firebase.default.auth.GoogleAuthProvider()
   
   auth.signInWithPopup(provider)
   .then((userCredential)=>{
@@ -105,7 +108,7 @@ const loginWithGoogle = async()=>{
     
   })
   .catch(error=>{
-  
+  alert(error.message)
       // toast.error(error.message, {
       //     position: toast.POSITION.BOTTOM_CENTER
       //   });

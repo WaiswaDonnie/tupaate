@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState , useContext} from 'react';
 import {
   View,
   StatusBar,
@@ -13,13 +13,27 @@ import {
 } from 'react-native';
 import { Input, Text } from '@ui-kitten/components';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { GlobalContext } from '../../components/Context/GlobalContext';
 const Login = ({ navigation }) => {
-  const [secureTextEntry, setSecureTextEntry] = useState(false);
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [password, setPassword] = useState('');
+  const [email,setEmail] = useState('')
+  const {
+  login,
+  loginWithGoogle,
+  
+  
+  } = useContext(GlobalContext)
 
   const toggleSecureTextEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
+
+  const handleLogin = () => {
+   login(email,password)
+  }
+  
+
 
   const renderIcon = () => {
     return (
@@ -71,6 +85,8 @@ const Login = ({ navigation }) => {
         placeholderStyle={{
           fontSize:50,
         }}
+        value={email}
+        onChangeText={text=>setEmail(text)}
           placeholderTextColor="white"
           accessoryRight={() => (
 
@@ -83,6 +99,8 @@ const Login = ({ navigation }) => {
         placeholderStyle={{
           fontSize:50,
         }}
+        value={password}
+        onChangeText={text=>setPassword(text)}
           placeholderTextColor="white"
           secureTextEntry={secureTextEntry}
           accessoryRight={renderIcon}
@@ -91,25 +109,26 @@ const Login = ({ navigation }) => {
       <View style={styles.btnSection}>
 
           <TouchableOpacity style={styles.btn}
-            onPress={()=>{
-              navigation.replace('Main')
-            }}
+           
+           onPress={handleLogin}
           >
 
             <Text
            style={styles.btnText} 
             >SIGN IN</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
           
           >
           <Text
           
           style={styles.text}
           >Or  Sign in using Social Media</Text>
-        </TouchableOpacity>
-          <View style={styles.socialSection}>
-  <TouchableOpacity style={styles.socialBtn}>
+        </TouchableOpacity> */}
+          {/* <View style={styles.socialSection}>
+  <TouchableOpacity style={styles.socialBtn}
+  onPress={loginWithGoogle}
+  >
 
   <FontAwesome name="google" size={30} color="white" />
   </TouchableOpacity>
@@ -121,16 +140,39 @@ const Login = ({ navigation }) => {
 
   <FontAwesome name="facebook" size={30} color="white" />
   </TouchableOpacity>
-</View>
-        <TouchableOpacity
+</View> */}
+<View
+
+
+> 
+<TouchableOpacity
        onPress={()=>{
          navigation.navigate('Register')
        }}
         >
           <Text
           style={styles.text}
-          >Dont have an Account? Sign Up</Text>
-        </TouchableOpacity>
+          > Don`t have account?Sign Up</Text>
+</TouchableOpacity>
+<TouchableOpacity
+style={{
+  justifyContent: 'center',
+  alignItems:'center',
+  width: '100%',
+}}
+>
+<Text
+
+style={styles.text,{
+  marginVertical:20,
+  marginHorizontal:50,
+  color:"skyblue",
+
+
+}}>Forgot Password?</Text>
+</TouchableOpacity>
+</View>
+       
       </View>
       </View>
     </View>
