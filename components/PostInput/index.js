@@ -6,9 +6,10 @@ import FeatherIcons from 'react-native-vector-icons/Feather'
 // import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { GlobalContext } from '../Context/GlobalContext'
 import * as ImagePicker from 'expo-image-picker';
-
+import {storage} from '../../firebase'
 function PostInput() {
-const {setImageUri,imageUri} = useContext(GlobalContext)
+const {setImageUri,imageUri,image} = useContext(GlobalContext)
+
 useEffect(() => {
  checkPermission()
 }, []);
@@ -38,6 +39,21 @@ async function checkPermission(){
     
   }
 
+  const uploadImage = async ()=>{
+    const storageRef = storage.ref('tutors/'+ file.name)
+storageRef.put(file)
+.then((snapshot)=>{
+  const percentUploaded = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+setLoadedBytes(percentUploaded)
+  snapshot.ref.getDownloadURL()
+  
+  .then(url=>{
+    // setPhoto(url)
+    setTutorImage(url)
+    console.log('From Pic', url)
+  })
+})
+  }
 
     return (
       <View>
