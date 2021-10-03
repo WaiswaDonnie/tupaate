@@ -49,12 +49,13 @@ getPopularMovies();
    }
 
 //Authentication Methods
-const login = async(email,password)=>{
+const login = async(email,password,navigation)=>{
   auth.
   signInWithEmailAndPassword(email,password)
   .then((userCredential)=>{
       if(userCredential){
           setUserProfile(userCredential.user)
+          navigation.push('Main')
           
           // checkAdmin(userCredential)
           // toast.success(`Logged in as ${userCredential.user.displayName}`,{
@@ -70,7 +71,7 @@ const login = async(email,password)=>{
   console.log("DOnee")
 }
 
-const signup = async(username,email,password)=>{
+const signup = async(username,email,password,navigation)=>{
   auth.createUserWithEmailAndPassword(email,password)
   .then(userCredential=>{
       if(userCredential){
@@ -81,7 +82,7 @@ const signup = async(username,email,password)=>{
           //     position: toast.POSITION.TOP_RIGHT
           // })
           setUserProfile(userCredential.user)
-         
+          navigation.push('Login')
       }
       
   }).catch(error=>{
@@ -101,6 +102,7 @@ const loginWithGoogle = async()=>{
   .then((userCredential)=>{
       if(userCredential){
           setUserProfile(userCredential.user)
+          
           // checkAdmin(userCredential);
           // toast.success(`Logged in as ${userCredential.user.displayName}`,{
           //     position: toast.POSITION.TOP_RIGHT
