@@ -1,10 +1,46 @@
-import React from 'react'
-import {View,StyleSheet,Text,TouchableOpacity} from 'react-native'
+import React,{useState,useEffect,Platform,useContext} from 'react'
+import {View,Image,StyleSheet,Text,TouchableOpacity} from 'react-native'
 import {Input} from '@ui-kitten/components'
 import COLORS from '../../constants/colors'
 import FeatherIcons from 'react-native-vector-icons/Feather'
+// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { GlobalContext } from '../Context/GlobalContext'
+import * as ImagePicker from 'expo-image-picker';
+
 function PostInput() {
+const {setImageUri,imageUri} = useContext(GlobalContext)
+useEffect(() => {
+ checkPermission()
+}, []);
+
+
+async function checkPermission(){
+
+    if (Platform.OS !== 'web') {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
+
+}
+  const handleMedia = async ()=>{
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImageUri(result.uri);
+    }
+    
+  }
+
+
     return (
+      <View>
         <View
         style={{ 
             flexDirection:'row',
@@ -25,7 +61,9 @@ function PostInput() {
           style={styles.input}
         />
         <View style={styles.btnSection}>
-<TouchableOpacity>
+<TouchableOpacity
+onPress={handleMedia}
+>
 <FeatherIcons name="image" 
 size={35} 
 color={COLORS.primary}
@@ -39,6 +77,16 @@ color={COLORS.primary}
   >POST</Text>
 </TouchableOpacity>
 </View>
+        </View>
+        <View style={styles.imageView}>
+        <Image
+         source={{uri:imageUri}}
+         style={{
+           width:200,
+           height:300
+         }}
+         />
+        </View>
         </View>
     )
 }
@@ -78,5 +126,11 @@ paddingVertical: 10,
   },
   input:{
    width:'70%'
+  },
+  imageView:{
+    // padding:20,
+    paddingVertical:20,
+    justifyContent:'center',
+    flexDirection: 'row'
   }
 })

@@ -10,6 +10,7 @@ export function GlobalContextProvider({children}){
  const [popularMovies,setPopularMovies] =  useState([])
  const [searchResults,setSearchResults] = useState([])
  const [ userProfile , setUserProfile] = useState(null)
+ const [imageUri,setImageUri]= useState("")
  useEffect(()=>{
 getMovies();
 getPopularMovies();
@@ -210,6 +211,8 @@ const logout = async () => {
       signup,
       verifyEmail,
       resetPassword,
+      imageUri,
+      setImageUri,
       userProfile,
       movies,
       popularMovies,
