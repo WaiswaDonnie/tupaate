@@ -28,7 +28,7 @@ const Register = ({ navigation }) => {
   };
 
   const handleRegistration = () => {
-    signup(username, email, password)
+    signup(username, email, password,navigation)
   }
 
   const renderIcon = () => {

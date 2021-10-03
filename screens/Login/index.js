@@ -30,7 +30,7 @@ const Login = ({ navigation }) => {
   };
 
   const handleLogin = () => {
-   login(email,password)
+   login(email,password,navigation)
   }
   
 
