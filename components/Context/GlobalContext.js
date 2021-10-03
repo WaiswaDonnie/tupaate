@@ -85,6 +85,7 @@ const signup = async(username,email,password)=>{
       }
       
   }).catch(error=>{
+    alert(error.message)
       
       // toast.error(error.message, {
       //     position: toast.POSITION.BOTTOM_CENTER

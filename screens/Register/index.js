@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState,useContext } from 'react';
 import {
   View,
   StatusBar,
@@ -15,13 +15,21 @@ import {
 } from 'react-native';
 import { Input, Text } from '@ui-kitten/components';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { GlobalContext } from '../../components/Context/GlobalContext';
 const Register = ({ navigation }) => {
-  const [secureTextEntry, setSecureTextEntry] = useState(false);
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [password, setPassword] = useState('');
-
+  const [username,setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const {signup } = useContext(GlobalContext)
+ 
   const toggleSecureTextEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
+
+  const handleRegistration = () => {
+    signup(username, email, password)
+  }
 
   const renderIcon = () => {
     return (
@@ -87,7 +95,7 @@ const Register = ({ navigation }) => {
           }}
         />
       </View>
-      <View style={styles.socialSection}>
+      {/* <View style={styles.socialSection}>
         <TouchableOpacity style={styles.socialBtn}>
 
           <FontAwesome name="google" size={30} color="white" />
@@ -100,7 +108,7 @@ const Register = ({ navigation }) => {
 
           <FontAwesome name="facebook" size={30} color="white" />
         </TouchableOpacity>
-      </View>
+      </View> */}
       <View style={styles.form}>
 
 
@@ -109,6 +117,8 @@ const Register = ({ navigation }) => {
           placeholderStyle={{
             fontSize: 50,
           }}
+          value={username}
+          onChangeText={text=>setUsername(text)}
           accessoryRight={() => (
 
             <FontAwesome name="user" size={25} color="white" />
@@ -120,6 +130,8 @@ const Register = ({ navigation }) => {
           placeholderStyle={{
             fontSize: 50,
           }}
+          value={email}
+          onChangeText={text=>setEmail(text)}
           placeholderTextColor="white"
           accessoryRight={() => (
 
@@ -133,13 +145,18 @@ const Register = ({ navigation }) => {
             fontSize: 50,
           }}
           placeholderTextColor="white"
+          value={password}
+          onChangeText={text=>setPassword(text)}
           secureTextEntry={secureTextEntry}
           accessoryRight={renderIcon}
           style={styles.input}
         />
         <View style={styles.btnSection}>
 
-          <TouchableOpacity style={styles.btn} >
+          <TouchableOpacity
+          
+          onPress={handleRegistration}
+          style={styles.btn} >
 
             <Text
               style={styles.btnText}
