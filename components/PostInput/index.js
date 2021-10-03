@@ -3,6 +3,7 @@ import {View,Image,StyleSheet,Text,TouchableOpacity} from 'react-native'
 import {Input} from '@ui-kitten/components'
 import COLORS from '../../constants/colors'
 import FeatherIcons from 'react-native-vector-icons/Feather'
+import Ionicons  from 'react-native-vector-icons/Ionicons'
 // import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { GlobalContext } from '../Context/GlobalContext'
 import * as ImagePicker from 'expo-image-picker';
@@ -10,6 +11,7 @@ import {storage} from '../../firebase'
 function PostInput() {
 const {setImageUri,imageUri,image} = useContext(GlobalContext)
 const [percentUploaded,setPercentUploaded] =useState(null)
+const [showImageView,setImageView] = useState(false)
 useEffect(() => {
  checkPermission()
 }, []);
@@ -35,7 +37,7 @@ async function checkPermission(){
 
     if (!result.cancelled) {
       setImageUri(result.uri);
-    }
+      setImageView(true)
     const storageRef = storage.ref('images/img-'+ (Math.random()*100) )
     
     storageRef.put(result.uri)
@@ -46,25 +48,11 @@ async function checkPermission(){
       .then(url => {
         setImageUri(url)
         console.log('From Pic', url)
-      })
-    })
+      }).catch(error=>alert(error.message))
+    }).catch(error=>alert(error.message))
+  }
   }
 
-//   const uploadImage = async ()=>{
-//     const storageRef = storage.ref('tutors/'+ file.name)
-// storageRef.put(file)
-// .then((snapshot)=>{
-//   const percentUploaded = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-// setLoadedBytes(percentUploaded)
-//   snapshot.ref.getDownloadURL()
-  
-//   .then(url=>{
-//     // setPhoto(url)
-//     setTutorImage(url)
-//     console.log('From Pic', url)
-//   })
-// })
-//   }
 
     return (
       <View>
@@ -96,7 +84,9 @@ size={35}
 color={COLORS.primary}
 />    
  </TouchableOpacity>
-<TouchableOpacity style={styles.btn}
+<TouchableOpacity
+
+style={styles.btn}
 >
 
   <Text
@@ -105,15 +95,42 @@ color={COLORS.primary}
 </TouchableOpacity>
 </View>
         </View>
+        {showImageView&& (
+      <>
+      {imageUri.length > 0 
+      ?
+      (<>
+   
         <View style={styles.imageView}>
-        <Image
-         source={{uri:imageUri}}
-         style={{
-           width:200,
-           height:300
-         }}
-         />
+          <TouchableOpacity
+          style={styles.cancelbtn}
+          onPress={()=>{
+            setImageUri("")
+            setImageView(false)
+          }}
+          >
+            <Ionicons name="close-circle-outline" size={35} />
+             </TouchableOpacity>
+          <Image
+          source={{url:imageUri}}
+          style={{
+            width:300,
+            height:400
+           }}
+          />
+          
+        
         </View>
+    
+      </>)
+      :
+      (<>
+      <Text> Getting</Text>
+      </>)}
+      </>
+    )
+    
+    }
         </View>
     )
 }
@@ -157,7 +174,13 @@ paddingVertical: 10,
   imageView:{
     // padding:20,
     paddingVertical:20,
+    position:'relative',    
     justifyContent:'center',
     flexDirection: 'row'
+  },
+  cancelbtn:{
+    position:'absolute',
+    right:10,
+    top:10
   }
 })
