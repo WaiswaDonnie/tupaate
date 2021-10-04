@@ -13,44 +13,55 @@ const {setImageUri,imageUri,image} = useContext(GlobalContext)
 const [percentUploaded,setPercentUploaded] =useState(null)
 const [showImageView,setImageView] = useState(false)
 useEffect(() => {
- checkPermission()
+//  checkPermission()
 }, []);
 
 
 async function checkPermission(){
 
-    if (Platform.OS !== 'web') {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
-      }
-    }
+    // if (Platform.OS !== 'web') {
+    //   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    //   if (status !== 'granted') {
+    //     alert('Sorry, we need camera roll permissions to make this work!');
+    //   }
+    // }
 
 }
   const handleMedia = async ()=>{
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      base64:true
     });
 
-    if (!result.cancelled) {
-      setImageUri(result.uri);
-      setImageView(true)
-    const storageRef = storage.ref('images/img-'+ (Math.random()*100) )
-    
-    storageRef.put(result.uri)
-    .then(snapshot=>{
-      const percentUploaded = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-      setPercentUploaded(percentUploaded)
-      snapshot.ref.getDownloadURL()
-      .then(url => {
-        setImageUri(url)
-        console.log('From Pic', url)
-      }).catch(error=>alert(error.message))
+    let options = {
+      mediaTypes: "photo",
+      maxWidth:300,
+      maxHeight:400,
+      quality:1
+    }
+// launchImageLibrary(options,result=>{
+  alert(result)
+  if (!result.cancelled) {
+    // setImageUri(result.uri);
+    setImageView(true)
+  const storageRef = storage.ref('images')
+  alert(result.uri)
+  storageRef.put(result)
+  .then(snapshot=>{
+    const percentUploaded = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    setPercentUploaded(percentUploaded)
+    snapshot.ref.getDownloadURL()
+    .then(url => {
+      setImageUri(url)
+      console.log('From Pic', url)
     }).catch(error=>alert(error.message))
-  }
+  }).catch(error=>alert(error.message))
+}
+// })
+
   }
 
 
