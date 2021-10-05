@@ -52,17 +52,43 @@ getPopularMovies();
   //  message,
   //  image
    const addPost = (newPost)=>{
-     if(!userProfile===null){
+
+     if(userProfile !== null){
       db.collection('posts').add({
-        displayName:userProfile.displayName,
-        photoUrl:userProfile.displayName,
-        message: newPost.message,
+        // displayName:userProfile.displayName,
+        // // photoUrl:userProfile.photoURL,
+        // photoUrl:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg',
+        // message: newPost.message,
         // image:newPost.image,
+        user: {
+          displayName:userProfile.displayName,
+          // photoURL:userProfile.photoURL
+          photoURL:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg'
+      },
+      message: newPost.message,
+      // photo: newPost.image,
+      createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
       })
+      alert("Posted")
      }
       
-
+ 
    }
+
+   const getPosts = async () =>{
+    db.collection("posts")
+    .orderBy("createdAt","desc")
+    .onSnapshot((snapShot)=>{
+     let data = snapShot.docs.map((doc) => ({
+        id: doc.id,
+        data: doc.data(),
+      }))
+      console.log('Git data', data)
+      setPosts(data)
+    })
+  }
+
+   
 
 
 //Authentication Methods
@@ -72,6 +98,7 @@ const login = async(email,password,navigation)=>{
   .then((userCredential)=>{
       if(userCredential){
           setUserProfile(userCredential.user)
+          
           navigation.push('Main')
           
           // checkAdmin(userCredential)

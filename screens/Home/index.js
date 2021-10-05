@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect,useContext } from 'react';
 import { View, ScrollView, FlatList, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import EntypoIcons from 'react-native-vector-icons/Entypo'
@@ -7,11 +7,17 @@ import { Avatar } from '@ui-kitten/components';
 import PostCard from '../../components/PostCard'
 import { Input } from '@ui-kitten/components';
 import PostInput from '../../components/PostInput';
+import { GlobalContext } from '../../components/Context/GlobalContext';
+
 const Home = ({ navigation }) => {
+  const {userProfile} = useContext(GlobalContext)
 navigation.setOptions({
   headerLeft:()=>(
     <TouchableOpacity style={feedStyles.header}>
-    <Avatar size="large" source={{ uri:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg'}} />
+    <Avatar size="large" 
+    source={{uri:userProfile?.photoURL}}
+    // source={{ uri:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg'}}
+    />
    </TouchableOpacity>
   ),
 headerRight:()=>(
@@ -21,7 +27,6 @@ headerRight:()=>(
   </TouchableOpacity>
 )
 })
-  
   const data = [
 
     {

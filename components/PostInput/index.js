@@ -9,7 +9,7 @@ import { GlobalContext } from '../Context/GlobalContext'
 import * as ImagePicker from 'expo-image-picker';
 import {storage} from '../../firebase'
 function PostInput() {
-const {setImageUri,imageUri} = useContext(GlobalContext)
+const {setImageUri,imageUri,addPost} = useContext(GlobalContext)
 const [percentUploaded,setPercentUploaded] =useState(null)
 const [showImageView,setImageView] = useState(false)
 const [image,setImage] = useState("")
@@ -23,12 +23,15 @@ useEffect(() => {
 
 
   const sendPost = ()=>{
+   
+    
     if(message.length > 0){
-      addPost({
-        message,
-        
-      })
+      addPost({message})
+      setMessage("")
+    }else{
+      alert("Aaaaah, say something please")
     }
+    
   }
 
 
@@ -122,6 +125,8 @@ task.then(() => {
         placeholderStyle={{
           fontSize:50,
         }}
+        value={message}
+        onChangeText={text=>setMessage(text)}
           placeholderTextColor="black"
           // secureTextEntry={secureTextEntry}
           // accessoryRight={renderIcon}
@@ -137,7 +142,7 @@ color={COLORS.primary}
 />    
  </TouchableOpacity>
 <TouchableOpacity
-
+onPress={sendPost}
 style={styles.btn}
 >
 
