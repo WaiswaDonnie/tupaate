@@ -2,7 +2,7 @@
 
 import React, { createContext, useState,useEffect } from 'react';
 import axios from 'axios';
-import {auth} from '../../firebase'
+import {auth,db} from '../../firebase'
 import * as firebase from 'firebase';
 export const GlobalContext =  createContext();
 
@@ -47,6 +47,23 @@ getPopularMovies();
        alert(error)
      })
    }
+  //  displayName,
+  //  photoUrl,
+  //  message,
+  //  image
+   const addPost = (newPost)=>{
+     if(!userProfile===null){
+      db.collection('posts').add({
+        displayName:userProfile.displayName,
+        photoUrl:userProfile.displayName,
+        message: newPost.message,
+        // image:newPost.image,
+      })
+     }
+      
+
+   }
+
 
 //Authentication Methods
 const login = async(email,password,navigation)=>{
@@ -156,6 +173,9 @@ const loginWithTwitter = async()=>{
 
 }
 
+
+
+
 const verifyEmail = async(email)=>{
   
   auth.currentUser.sendEmailVerification()
@@ -224,6 +244,7 @@ const logout = async () => {
       setImage,
       userProfile,
       movies,
+      addPost,
       popularMovies,
       searchMovies,
       searchResults

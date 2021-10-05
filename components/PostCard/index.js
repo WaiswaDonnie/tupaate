@@ -36,6 +36,9 @@ const PostCard = () => {
 
     const RenderCard = ({ item }) => {
         return (
+
+          
+
             <Card style={styles.card}>
                 <View style={styles.header}>
                     <Avatar
