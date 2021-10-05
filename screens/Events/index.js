@@ -21,7 +21,7 @@ export default function Events({navigation}) {
       //  </TouchableOpacity>
       // ),
     headerRight:()=>(
-      <TouchableOpacity style={feedStyles.header}>
+      <TouchableOpacity style={homeStyles.header}>
     
       <SimpleLineIcons name="plus" size={23} />
       </TouchableOpacity>
@@ -144,7 +144,7 @@ export default function Events({navigation}) {
     )
 }
 
-const home = StyleSheet.create({
+const homeStyles = StyleSheet.create({
   container:{
     flex:1
   },
@@ -163,6 +163,14 @@ const home = StyleSheet.create({
     
     
     
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems:'center',
+    paddingHorizontal: 10,
+
+    paddingVertical: 5
   },
   touchable:{
     borderRadius:10,
