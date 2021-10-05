@@ -16,30 +16,30 @@ import Chats from '../Chats';
 const Tab = createBottomTabNavigator();
 function Main({navigation}) {
 
-  const CustomButton = ({children,onPress})=>{
-    return(
+//   const CustomButton = ({children,onPress})=>{
+//     return(
 
   
-<TouchableOpacity
-style={{
-  top:-30,
-  ...styles.shadow
-}}
-onPress={onPress}
->
-  <View
-  style={{
-    width:70,
-    height:70,
-    borderRadius:35,
-    backgroundColor:'#ff385c',
-    ...styles.btnShadow
+// <TouchableOpacity
+// style={{
+//   top:-30,
+//   ...styles.shadow
+// }}
+// onPress={onPress}
+// >
+//   <View
+//   style={{
+//     width:70,
+//     height:70,
+//     borderRadius:35,
+//     backgroundColor:'#ff385c',
+//     ...styles.btnShadow
     
-    }}
-  >{children}</View>
-</TouchableOpacity>
-  )
-  }
+//     }}
+//   >{children}</View>
+// </TouchableOpacity>
+//   )
+//   }
 
   const CustomIcon = ({focused})=>{
     return(
@@ -113,7 +113,7 @@ onPress={onPress}
       }}
       
       />
-          <Tab.Screen name="Post" component={Post}
+          {/* <Tab.Screen name="Post" component={Post}
       options={{
         tabBarIcon:({ color })=>(
             <FontAwesome name="plus" size={35} color="#fff" />
@@ -125,7 +125,7 @@ onPress={onPress}
         )
         
       }}
-      />
+      /> */}
       <Tab.Screen name="Movies" component={Movies}
       options={{
         tabBarIcon:({ focused }) => (

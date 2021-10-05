@@ -68,7 +68,7 @@ const PostCard = ({item}) => {
                         style={styles.avatar}
                         // source={item.data.user.photoURL}
                         source={{ uri:item.data.user.photoURL}}
-                        size="giant"
+                        size="medium"
                     />
                     <View style={styles.subHeader}>
                         <Text style={styles.displayName}>{item.data.user.displayName}</Text>
@@ -128,7 +128,7 @@ const PostCard = ({item}) => {
 export default PostCard;
 const styles = StyleSheet.create({
     card: {
-        marginVertical: 10,
+        marginVertical: 5,
         paddingVertical: 10
     },
     header: {

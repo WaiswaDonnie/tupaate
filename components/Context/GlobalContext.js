@@ -99,7 +99,6 @@ const checkAuth = ()=>{
         id: doc.id,
         data: doc.data(),
       }))
-      console.log('Git data', data)
       setPosts(data)
     })
   }
