@@ -137,7 +137,7 @@ task.then(() => {
 onPress={handleMedia}
 >
 <FeatherIcons name="image" 
-size={35} 
+size={25} 
 color={COLORS.primary}
 />    
  </TouchableOpacity>
@@ -205,13 +205,14 @@ marginHorizontal:5
   },
   btn:{
     // width: '100%',
-    height:35,
+    width:50,
+    height:25,
     alignItems:'center',
     borderRadius:3,
 
   justifyContent:'center',
-paddingHorizontal: 10,
-paddingVertical: 10,
+// paddingHorizontal: 10,
+// paddingVertical: 5,
   borderColor:COLORS.primary,
   borderWidth:1,
     fontWeight:'500',
