@@ -68,7 +68,7 @@ const PostCard = ({item}) => {
                         style={styles.avatar}
                         // source={item.data.user.photoURL}
                         source={{ uri:item.data.user.photoURL}}
-                        size="medium"
+                        size="giant"
                     />
                     <View style={styles.subHeader}>
                         <Text style={styles.displayName}>{item.data.user.displayName}</Text>

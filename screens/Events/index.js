@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react'
+import React,{ useLayoutEffect} from 'react'
 import { View,TextInput,Alert,TouchableOpacity,Button ,StyleSheet, ScrollView,Image} from 'react-native';
 import Try from '../../components/Events/Try'
 import Trial from '../../components/Events/Trial'
@@ -10,6 +10,24 @@ import { Avatar } from '@ui-kitten/components';
 
 export default function Events({navigation}) {
 
+  useLayoutEffect(()=>{
+    navigation.setOptions({
+      // headerLeft:()=>(
+      //   <TouchableOpacity style={feedStyles.header}>
+      //   <Avatar size="large" 
+      //   source={{uri:userProfile?.photoURL}}
+      //   // source={{ uri:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg'}}
+      //   />
+      //  </TouchableOpacity>
+      // ),
+    headerRight:()=>(
+      <TouchableOpacity style={feedStyles.header}>
+    
+      <SimpleLineIcons name="plus" size={23} />
+      </TouchableOpacity>
+    )
+    })
+  },[])
   const weekendEvents= [
     {
       name: 'Nyege Nyege Festival',
@@ -113,12 +131,11 @@ export default function Events({navigation}) {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         >
-<Trial/>
-<Try/>
-<Trial/>
-<Try/>
-<Trial/>
-<Try/>
+{
+  weekendEvents.map(item =>(
+     <Trial   event={item}   navigation={navigation}  />
+  ))
+}
         </ScrollView>
         
 
