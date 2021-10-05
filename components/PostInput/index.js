@@ -1,5 +1,5 @@
-import React,{useState,useEffect,Platform,useContext} from 'react'
-import {View,Image,StyleSheet,Text,TouchableOpacity} from 'react-native'
+import React,{useState,useEffect,useContext} from 'react'
+import {View,Image,StyleSheet,Text,TouchableOpacity,Platform} from 'react-native'
 import {Input} from '@ui-kitten/components'
 import COLORS from '../../constants/colors'
 import FeatherIcons from 'react-native-vector-icons/Feather'
@@ -9,9 +9,10 @@ import { GlobalContext } from '../Context/GlobalContext'
 import * as ImagePicker from 'expo-image-picker';
 import {storage} from '../../firebase'
 function PostInput() {
-const {setImageUri,imageUri,image} = useContext(GlobalContext)
+const {setImageUri,imageUri} = useContext(GlobalContext)
 const [percentUploaded,setPercentUploaded] =useState(null)
 const [showImageView,setImageView] = useState(false)
+const [image,setImage] = useState("")
 useEffect(() => {
 //  checkPermission()
 }, []);
@@ -35,32 +36,67 @@ async function checkPermission(){
       quality: 1,
       base64:true
     });
-
-    let options = {
-      mediaTypes: "photo",
-      maxWidth:300,
-      maxHeight:400,
-      quality:1
-    }
 // launchImageLibrary(options,result=>{
-  alert(result)
+ 
   if (!result.cancelled) {
     // setImageUri(result.uri);
     setImageView(true)
-  const storageRef = storage.ref('images')
-  alert(result.uri)
-  storageRef.put(result)
-  .then(snapshot=>{
-    const percentUploaded = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-    setPercentUploaded(percentUploaded)
-    snapshot.ref.getDownloadURL()
-    .then(url => {
-      setImageUri(url)
-      console.log('From Pic', url)
-    }).catch(error=>alert(error.message))
-  }).catch(error=>alert(error.message))
+   setImage(result.uri)
+
+    const uploadUri = Platform.OS === 'ios' ? image.replace('file://', '') : image;
+    console.log("cascasC",uploadUri)
+   
+    uploadImage(uploadUri)
+   
+  
+  
+    // const storageRef = storage.ref('images')
+  // alert(result.uri)
+  // storageRef.put(result)
+  // .then(snapshot=>{
+  //   const percentUploaded = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+  //   setPercentUploaded(percentUploaded)
+  //   snapshot.ref.getDownloadURL()
+  //   .then(url => {
+  //     setImageUri(url)
+  //     console.log('From Pic', url)
+  //   }).catch(error=>alert(error.message))
+  // }).catch(error=>alert(error.message))
 }
 // })
+
+  }
+
+
+  const uploadImage = async (uploadUri)=>{
+    const filename = uploadUri.substring(uploadUri.lastIndexOf('/' + 1));
+
+
+    const storageRef  =  storage.ref('images/IMG-' + filename);
+ const task = storageRef.put(uploadUri)
+
+ task.on('state_changed', taskSnapshot => {
+  console.log(`${taskSnapshot.bytesTransferred} transferred 
+  out of ${taskSnapshot.totalBytes}`);
+});
+
+task.then(() => {
+  console.log('Image uploaded to the bucket!');
+})
+
+    // await storageRef.put(uploadUri)
+    // .then(snapshot=>{
+    //   const percentUploaded = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    //   setPercentUploaded(percentUploaded)
+    //   snapshot.ref.getDownloadURL()
+    //   .then(url => {
+    //     setImageUri(url)
+    //     console.log('From Pic', url)
+    //   }).catch(error=>alert(error.message))
+
+    // }).catch(error=>alert(error.message))
+
+
 
   }
 

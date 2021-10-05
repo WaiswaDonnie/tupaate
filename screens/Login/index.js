@@ -16,8 +16,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { GlobalContext } from '../../components/Context/GlobalContext';
 const Login = ({ navigation }) => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const [password, setPassword] = useState('');
-  const [email,setEmail] = useState('')
+  const [password, setPassword] = useState('123456789');
+  const [email,setEmail] = useState('waiswadonnie@gmail.com')
   const {
   login,
   loginWithGoogle,
