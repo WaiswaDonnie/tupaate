@@ -12,7 +12,8 @@ export function GlobalContextProvider({children}){
  const [searchResults,setSearchResults] = useState([])
  const [ userProfile , setUserProfile] = useState(null)
  const [imageUri,setImageUri]= useState("")
- const [image,setImage] = useState()
+ const [image,setImage] = useState("")
+ const  [posts,setPosts] = useState([])
  useEffect(()=>{
 getMovies();
 getPopularMovies();
@@ -274,7 +275,8 @@ const logout = async () => {
       addPost,
       popularMovies,
       searchMovies,
-      searchResults
+      searchResults,
+      posts
     }}>
         {children}
     </GlobalContext.Provider>

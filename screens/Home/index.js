@@ -107,7 +107,7 @@ headerRight:()=>(
           <PostInput />
         </View>
    
-        {/* <PostCard /> */}
+        <PostCard />
       </View>
 
 
