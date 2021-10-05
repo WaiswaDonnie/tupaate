@@ -14,11 +14,24 @@ export function GlobalContextProvider({children}){
  const [imageUri,setImageUri]= useState("")
  const [image,setImage] = useState("")
  const  [posts,setPosts] = useState([])
+ const [loggedIn, setLoggedIn] = useState(false)
  useEffect(()=>{
 getMovies();
 getPopularMovies();
 getPosts()
+checkAuth()
 },[])
+
+const checkAuth = ()=>{
+  auth.onAuthStateChanged(user=>{
+    if(user){
+      setLoggedIn(true)
+      setUserProfile(user)
+      
+    }
+  })
+}
+
 
     function getMovies(){
         axios.get('https://yts.mx/api/v2/list_movies.json?sort_by=date_added&order_by=asc&limit=40')
@@ -71,7 +84,8 @@ getPosts()
       photo: newPost.image,
       createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
       })
-      alert("Posted")
+      
+      
      }
       
  
@@ -102,6 +116,7 @@ const login = async(email,password,navigation)=>{
           setUserProfile(userCredential.user)
           
           navigation.push('Main')
+          setLoggedIn(true)
           
           // checkAdmin(userCredential)
           // toast.success(`Logged in as ${userCredential.user.displayName}`,{
@@ -277,7 +292,8 @@ const logout = async () => {
       popularMovies,
       searchMovies,
       searchResults,
-      posts
+      posts,
+      loggedIn
     }}>
         {children}
     </GlobalContext.Provider>

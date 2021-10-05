@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import React, { useState } from 'react';
+import React, { useState ,useEffect,useContext} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {StatusBar} from 'react-native'
@@ -17,10 +17,27 @@ import More from './screens/More'
 import * as eva from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
-import { GlobalContextProvider } from './components/Context/GlobalContext';
+import { GlobalContext, GlobalContextProvider } from './components/Context/GlobalContext';
 import SearchScreen from './screens/SearchScreen';
+import { auth } from './firebase';
+
 const AuthStack = createStackNavigator();
 const App = () => {
+  // const { loggedIn } = useContext(GlobalContext)
+
+  useEffect(()=>{
+      // checkAuth()
+  },[] )
+
+// const checkAuth = ()=>{
+//   auth.onAuthStateChanged(user=>{
+//     if(user){
+//       setLoggedIn(true)
+      
+//     }
+//   })
+// }
+
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
