@@ -26,7 +26,7 @@ useEffect(() => {
    
     
     if(message.length > 0){
-      addPost({message})
+      addPost({message,image})
       setMessage("")
     }else{
       alert("Aaaaah, say something please")

@@ -17,6 +17,7 @@ export function GlobalContextProvider({children}){
  useEffect(()=>{
 getMovies();
 getPopularMovies();
+getPosts()
 },[])
 
     function getMovies(){
@@ -67,7 +68,7 @@ getPopularMovies();
           photoURL:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg'
       },
       message: newPost.message,
-      // photo: newPost.image,
+      photo: newPost.image,
       createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
       })
       alert("Posted")

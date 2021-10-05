@@ -10,7 +10,7 @@ import PostInput from '../../components/PostInput';
 import { GlobalContext } from '../../components/Context/GlobalContext';
 
 const Home = ({ navigation }) => {
-  const {userProfile} = useContext(GlobalContext)
+  const {userProfile,posts} = useContext(GlobalContext)
 navigation.setOptions({
   headerLeft:()=>(
     <TouchableOpacity style={feedStyles.header}>
@@ -107,7 +107,12 @@ headerRight:()=>(
           <PostInput />
         </View>
    
-        <PostCard />
+        {/* <PostCard /> */}
+        <ScrollView>
+          {posts.map(post=>(
+            <PostCard item={post} key={post.id}  />
+          ))}
+        </ScrollView>
       </View>
 
 

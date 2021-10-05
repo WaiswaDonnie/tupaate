@@ -1,12 +1,17 @@
 /* eslint-disable prettier/prettier */
 
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import { View, FlatList, StyleSheet, Image, Button, ScrollView, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-paper';
 import { Avatar, Text } from '@ui-kitten/components';
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-const PostCard = () => {
+import { GlobalContext } from '../Context/GlobalContext';
+const PostCard = ({item}) => { 
+// alert(JSON.stringify(item.data.user.photoURL)) 
+ 
+    
+    
     const [liked,setLiked] = useState(true)
     const data = [
         {
@@ -34,28 +39,52 @@ const PostCard = () => {
         alert("unliked")
     }
 
-    const RenderCard = ({ item }) => {
-        return (
+    // const RenderCard = ({ item }) => {
+    //     return (
 
           
 
-            <Card style={styles.card}>
+          
+    //     )}
+    return (
+        // <ScrollView>
+        //     {/* <FlatList
+        //         data={data}
+        //         keyExtractor={item => item.id}
+        //         renderItem={({ item }) => {
+        //             return <RenderCard item={item} />
+        //         }}
+        //     /> */}
+        //     {
+        //         posts.map(item =>(
+        //             <RenderCard item={item} key={item.id} />
+        //         ))
+        //     }
+        // </ScrollView>
+        <>
+          <Card style={styles.card}>
                 <View style={styles.header}>
                     <Avatar
                         style={styles.avatar}
-                        source={item.image}
+                        // source={item.data.user.photoURL}
+                        source={{ uri:item.data.user.photoURL}}
                         size="giant"
                     />
                     <View style={styles.subHeader}>
-                        <Text style={styles.displayName}>{item.name}</Text>
-                        <Text style={styles.title}>NAME</Text>
+                        <Text style={styles.displayName}>{item.data.user.displayName}</Text>
+                        <Text style={styles.title}>{item.data.message}</Text>
                     </View>
                 </View>
-
+                {item?.data?.photo?.length > 0 
+                ?
                 <Image source={item.image}
                     style={styles.cardImage}
                   resizeMode="cover"
                 />
+                :
+                <></>
+                }
+                
                 <Card.Actions >
                     <View style={styles.cardfooter}>
             <View>
@@ -70,7 +99,7 @@ const PostCard = () => {
                        color="#ff385c"
                         name={!liked ? "heart-multiple-outline":"heart-multiple"} 
                         onPress={ likePost}
-                       size={35} />
+                       size={25} />
                        <Text>500</Text>
                     </TouchableOpacity>
             </View>
@@ -83,29 +112,14 @@ const PostCard = () => {
                         alignItems:'center'
                     }}
                     >
-                       <EvilIcons name="comment" size={44} color="#ff385c"/>
+                       <EvilIcons name="comment" size={30} color="#ff385c"/>
                        <Text>500</Text>
                     </TouchableOpacity>
             </View>
                     </View>
                 </Card.Actions>
             </Card>
-        )}
-    return (
-        <ScrollView>
-            {/* <FlatList
-                data={data}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => {
-                    return <RenderCard item={item} />
-                }}
-            /> */}
-            {
-                data.map(item =>(
-                    <RenderCard item={item} key={item.id} />
-                ))
-            }
-        </ScrollView>
+        </>
 
     );
 };
