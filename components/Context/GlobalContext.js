@@ -110,15 +110,16 @@ const checkAuth = ()=>{
         // photoURL:userProfile.photoURL
         photoURL:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg'
     },
-    createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
-    eventName:event.eventName,
-    eventDescription:event.eventDescription,
-    eventImage:event.eventImage,
-    eventTime:event.eventTime,
-    eventDate:event.eventDate,
-    eventDuration:event.eventDuration,
-    eventLocation:event.eventLocation,
+    // createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
+    eventName: event.eventName,
+    // eventDescription:event.eventDescription,
+    // eventImage:event.eventImage,
+    // eventTime:event.eventTime,
+    // eventDate:event.eventDate,
+    // eventDuration:event.eventDuration,
+    // eventLocation:event.eventLocation,
     })
+    alert("added")
 
   }
 
@@ -344,6 +345,7 @@ const logout = async () => {
       searchMovies,
       searchResults,
       posts,
+      events,
       loggedIn,
       openModal,
       

@@ -15,6 +15,10 @@ import { Input, Text } from '@ui-kitten/components';
 
 
 function EventModal() {
+    const {addEvent} = useContext(GlobalContext)
+
+   
+
     const {openModal,toggleModal} = useContext(GlobalContext)
     const [eventName,setEventName] = useState('')
     const [eventDescription,setEventDescription] = useState('')
@@ -23,6 +27,27 @@ function EventModal() {
     const [eventDate,setEventDate] = useState('')
     const [eventDuration,setEventDuration] = useState('')
     const [eventLocation,setEventLocation] = useState('')
+    const createEvent =()=>{
+        addEvent({
+            eventName,
+            eventDescription,
+            eventImage,
+            eventTime,
+            eventDate,
+            eventDuration,
+            eventLocation,
+        })
+        setEventName('')
+        setEventLocation('')
+        setEventDuration('')
+        setEventDescription('')
+        setEventImage('')
+        setEventTime('')
+        setEventDate('')
+        toggleModal()
+
+
+    }
     return (
         <View style={{
              flex: 1,
@@ -60,6 +85,7 @@ function EventModal() {
           fontSize:50,
         }}
         value={eventDuration}
+        onChangeText={text=>setEventDuration(text)}
           placeholderTextColor="white"
           style={styles.input}
         />
@@ -78,7 +104,9 @@ function EventModal() {
             alignItems: 'center'
          }}
         > 
-         <Input placeholder="Date"
+         <Input
+         type="date"
+         placeholder="Date"
         placeholderStyle={{
           fontSize:50,
         }}
@@ -114,6 +142,7 @@ function EventModal() {
         />
   <TouchableOpacity
   style={styles.button}
+  onPress={createEvent}
   >
         <Text style={styles.btnText}>CREATE EVENT</Text>
   </TouchableOpacity>
