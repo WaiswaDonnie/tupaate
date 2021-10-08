@@ -16,6 +16,7 @@ import { Input, Text } from '@ui-kitten/components';
 
 function EventModal() {
     const {openModal,toggleModal} = useContext(GlobalContext)
+    const [eventName,setEventName] = useState('')
     const [eventDescription,setEventDescription] = useState('')
     const [eventImage,setEventImage] = useState('')
     const [eventTime,setEventTime] = useState('')
@@ -48,6 +49,8 @@ function EventModal() {
         placeholderStyle={{
           fontSize:50,
         }}
+        value={eventName}
+        onChangeText={text=>setEventName(text)}
     
           placeholderTextColor="white"
           style={styles.input}
@@ -56,7 +59,7 @@ function EventModal() {
         placeholderStyle={{
           fontSize:50,
         }}
-    
+        value={eventDuration}
           placeholderTextColor="white"
           style={styles.input}
         />
@@ -64,7 +67,8 @@ function EventModal() {
         placeholderStyle={{
           fontSize:50,
         }}
-    
+        value={eventLocation}
+        onChangeText={text=>setEventLocation(text)}
           placeholderTextColor="white"
           style={styles.input}
         />
@@ -78,7 +82,8 @@ function EventModal() {
         placeholderStyle={{
           fontSize:50,
         }}
-    
+    value={eventDate}
+    onChangeText={text=>setEventDate(text)}
           placeholderTextColor="white"
           style={styles.dateInput}
         />
@@ -86,6 +91,8 @@ function EventModal() {
         placeholderStyle={{
           fontSize:50,
         }}
+        value={eventTime}
+        onChangeText={text=>setEventTime(text)}
     
           placeholderTextColor="white"
           style={styles.timeInput}
@@ -99,6 +106,8 @@ function EventModal() {
         placeholderStyle={{
           fontSize:50,
         }}
+        value={eventDescription}
+        onChangeText={text=>setEventDescription(text)}
     
           placeholderTextColor="white"
           style={styles.input}
