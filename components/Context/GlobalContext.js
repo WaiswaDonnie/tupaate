@@ -15,7 +15,8 @@ export function GlobalContextProvider({children}){
  const [ userProfile , setUserProfile] = useState(null)
  const [imageUri,setImageUri]= useState("")
  const [image,setImage] = useState("")
-
+const [usersOnline,setUsersOnline] = useState(0)
+const [users,setUsers] = useState(null)
  const [loggedIn, setLoggedIn] = useState(false)
  const [openModal,setModal] = useState(false)
  
@@ -26,6 +27,7 @@ getPopularMovies();
 getPosts()
 checkAuth()
 getEvents()
+getUsers()
 },[])
 
 
@@ -112,12 +114,12 @@ const checkAuth = ()=>{
     },
     // createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
     eventName: event.eventName,
-    // eventDescription:event.eventDescription,
-    // eventImage:event.eventImage,
-    // eventTime:event.eventTime,
-    // eventDate:event.eventDate,
-    // eventDuration:event.eventDuration,
-    // eventLocation:event.eventLocation,
+    eventDescription:event.eventDescription,
+    eventImage:event.eventImage,
+    eventTime:event.eventTime,
+    eventDate:event.eventDate,
+    eventDuration:event.eventDuration,
+    eventLocation:event.eventLocation,
     })
     alert("added")
 
@@ -149,9 +151,25 @@ const checkAuth = ()=>{
     })
   }
 
+ 
+  const getUsers = async()=>{
+    db.collection("users")
+    .orderBy("joinedAt","desc")
+    .onSnapshot((snapShot) => {
+      let data = snapShot.docs.map((doc) => ({
+        id: doc.id,
+        data:doc.data()
+      }))
+      setUsersOnline(data.length)
+      setUsers(data)
+   
+    })
+  }
+
   const toggleModal = ()=>{
     setModal(!openModal)
   }
+  
 
    
 
@@ -192,6 +210,14 @@ const signup = async(username,email,password,navigation)=>{
           //     position: toast.POSITION.TOP_RIGHT
           // })
           setUserProfile(userCredential.user)
+          db.collection('users').add({
+           displayName: userCredential.user.displayName,
+           email: userCredential.user.email,
+           photoURL: userCredential.user.photoURL,
+           joinedAt: new Date()
+
+            
+          }) 
           navigation.push('Login')
       }
       
@@ -340,7 +366,9 @@ const logout = async () => {
       movies,
       addPost,
       addEvent,
-      
+
+      usersOnline,
+
       popularMovies,
       searchMovies,
       searchResults,
@@ -348,6 +376,7 @@ const logout = async () => {
       events,
       loggedIn,
       openModal,
+      users
       
     }}>
         {children}

@@ -1,11 +1,28 @@
 /* eslint-disable prettier/prettier */
-import React from 'react'
+import React,{ useLayoutEffect,useContext} from 'react'
 import {View,Text,TouchableOpacity, Avatar, FlatList} from 'react-native';
 import ChatList from '../../components/ChatList';
 import {ListItem} from 'react-native-elements';
+import { GlobalContext } from '../../components/Context/GlobalContext';
 
 
 function Chats({navigation}){
+    const {users} = useContext(GlobalContext)
+    useLayoutEffect(()=>{
+
+        navigation.setOptions({
+            headerRight:()=>(
+                <View
+                style={{
+                    marginHorizontal:20
+                 }}
+                > 
+      <Text>{users.length} Joined</Text>
+                </View>
+          
+            )
+        })
+     },[])
 
     const List=[
         {
