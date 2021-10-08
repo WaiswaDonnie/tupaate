@@ -1,5 +1,5 @@
-import React,{useContext} from 'react'
-import {View,Button,StyleSheet} from 'react-native'
+import React,{useContext,useState} from 'react'
+import {View,Button,StyleSheet,TouchableOpacity} from 'react-native'
 import Modal from "react-native-modal";
 import { GlobalContext } from '../Context/GlobalContext';
 import { Input, Text } from '@ui-kitten/components';
@@ -13,8 +13,15 @@ import { Input, Text } from '@ui-kitten/components';
 // location:'Jinja',
 // date:'12 Nov'
 
+
 function EventModal() {
     const {openModal,toggleModal} = useContext(GlobalContext)
+    const [eventDescription,setEventDescription] = useState('')
+    const [eventImage,setEventImage] = useState('')
+    const [eventTime,setEventTime] = useState('')
+    const [eventDate,setEventDate] = useState('')
+    const [eventDuration,setEventDuration] = useState('')
+    const [eventLocation,setEventLocation] = useState('')
     return (
         <View style={{
              flex: 1,
@@ -96,7 +103,11 @@ function EventModal() {
           placeholderTextColor="white"
           style={styles.input}
         />
-  
+  <TouchableOpacity
+  style={styles.button}
+  >
+        <Text style={styles.btnText}>CREATE EVENT</Text>
+  </TouchableOpacity>
             <Button title="Hide modal" onPress={toggleModal} />
           </View>
         </Modal>
@@ -115,6 +126,7 @@ const styles =  StyleSheet.create({
     },
    timeInput:{
 flex:.4,
+marginVertical:10,
 
 marginLeft:5,
 backgroundColor: '#FFFFFF50',
@@ -123,11 +135,26 @@ color:'white',
    },
    dateInput:{
        flex:.6,
+       marginVertical:10,
     //    width: '100%',÷
 
 
        backgroundColor: '#FFFFFF50',
        fontWeight:'500',
        color:'white',
+   },
+   button:{
+    width: '100%',
+    height:50,
+    alignItems:'center',
+  justifyContent:'center',
+    backgroundColor: 'white',
+    fontWeight:'500',
+    color:'white',
+    margin:10
+   },
+   btnText:{
+       fontWeight:'bold',
    }
+
 })
