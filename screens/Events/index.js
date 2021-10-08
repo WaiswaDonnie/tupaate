@@ -5,6 +5,7 @@ import Try from '../../components/Events/Try'
 import Trial from '../../components/Events/Trial'
 import { Input, Text } from '@ui-kitten/components';
 import COLORS from '../../constants/colors'
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import { Avatar } from '@ui-kitten/components';
 
 
