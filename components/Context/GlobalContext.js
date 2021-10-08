@@ -10,10 +10,12 @@ export function GlobalContextProvider({children}){
  const [movies,setMovies] =  useState([])
  const [popularMovies,setPopularMovies] =  useState([])
  const [searchResults,setSearchResults] = useState([])
+ const  [posts,setPosts] = useState([])
+ const [ events,setEvents] = useState([])
  const [ userProfile , setUserProfile] = useState(null)
  const [imageUri,setImageUri]= useState("")
  const [image,setImage] = useState("")
- const  [posts,setPosts] = useState([])
+
  const [loggedIn, setLoggedIn] = useState(false)
  const [openModal,setModal] = useState(false)
  
@@ -23,6 +25,7 @@ getMovies();
 getPopularMovies();
 getPosts()
 checkAuth()
+getEvents()
 },[])
 
 
@@ -96,6 +99,31 @@ const checkAuth = ()=>{
  
    }
 
+
+   
+
+  const addEvent = (event)=>{
+    
+    db.collection('events').add({
+      user: {
+        displayName:userProfile.displayName,
+        // photoURL:userProfile.photoURL
+        photoURL:'https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_250,q_auto:good,w_250/v1/gcs/platform-data-dsc/events/2020-04-11-12-17-19-014_2_vc7tRp3.jpg'
+    },
+    createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
+    eventName:event.eventName,
+    eventDescription:event.eventDescription,
+    eventImage:event.eventImage,
+    eventTime:event.eventTime,
+    eventDate:event.eventDate,
+    eventDuration:event.eventDuration,
+    eventLocation:event.eventLocation,
+    })
+
+  }
+
+
+
    const getPosts = async () =>{
     db.collection("posts")
     .orderBy("createdAt","desc")
@@ -105,6 +133,18 @@ const checkAuth = ()=>{
         data: doc.data(),
       }))
       setPosts(data)
+    })
+  }
+
+  const getEvents = async()=>{
+    db.collection("events")
+    .orderBy("createdAt","desc")
+    .onSnapshot((snapShot) => {
+      let data = snapShot.docs.map((doc) => ({
+        id: doc.id,
+        data:doc.data()
+      }))
+      setEvents(data)
     })
   }
 
@@ -298,6 +338,8 @@ const logout = async () => {
       userProfile,
       movies,
       addPost,
+      addEvent,
+      
       popularMovies,
       searchMovies,
       searchResults,
