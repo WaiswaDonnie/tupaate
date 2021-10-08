@@ -15,12 +15,17 @@ export function GlobalContextProvider({children}){
  const [image,setImage] = useState("")
  const  [posts,setPosts] = useState([])
  const [loggedIn, setLoggedIn] = useState(false)
+ const [openModal,setModal] = useState(false)
+ 
+ 
  useEffect(()=>{
 getMovies();
 getPopularMovies();
 getPosts()
 checkAuth()
 },[])
+
+
 
 const checkAuth = ()=>{
   auth.onAuthStateChanged(user=>{
@@ -101,6 +106,10 @@ const checkAuth = ()=>{
       }))
       setPosts(data)
     })
+  }
+
+  const toggleModal = ()=>{
+    setModal(!openModal)
   }
 
    
@@ -284,6 +293,7 @@ const logout = async () => {
       imageUri,
       setImageUri,
       image,
+      toggleModal,
       setImage,
       userProfile,
       movies,
@@ -292,7 +302,9 @@ const logout = async () => {
       searchMovies,
       searchResults,
       posts,
-      loggedIn
+      loggedIn,
+      openModal,
+      
     }}>
         {children}
     </GlobalContext.Provider>
